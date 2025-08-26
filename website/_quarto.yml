@@ -8,19 +8,19 @@ project:
     - "cp -rf static/ ../docs/static/"
 
 website:
-  # announcement:
-  #   content: "[Click here](https://join.slack.com/t/dav5300spring2025/shared_invite/zt-2yja0zs7k-GCJTqNKlLNgYYmetdl~OMw) to the join the Slack channel."
-  #   # position: below-navbar # above-navbar or below-navbar
-  #   icon: slack #info-circle # https://icons.getbootstrap.com
-  #   dismissable: false
-  #   type: primary # primary, secondary, success, danger, warning, info, light, dark
+  announcement:
+    content: "[Click here](https://join.slack.com/t/dav5300fall2025/shared_invite/zt-3byaerqrp-E6GBxXXOWcpIucF1iIluPA) to the join the Slack channel."
+    # position: below-navbar # above-navbar or below-navbar
+    icon: slack #info-circle # https://icons.getbootstrap.com
+    dismissable: false
+    type: primary # primary, secondary, success, danger, warning, info, light, dark
 
   page-navigation: true
-  title: "DAV 5300 Spring 2025"
+  title: "DAV 5300 Fall 2025"
   description: "DAV5300 - Computational Math and Statistics - Yeshiva University"
-  site-url: "https://spring2025.dav5300.net/"
+  site-url: "https://fall2025.dav5300.net/"
 
-  repo-url: https://github.com/jbryer/DAV5300-2025-Spring/
+  repo-url: https://github.com/jbryer/DAV5300-2025-Fall/
   repo-subdir: website
   repo-branch: master
   repo-actions: [edit, issue]
@@ -44,11 +44,11 @@ website:
         href: index.qmd
         text: "Schedule"
       - icon: github
-        href: https://github.com/jbryer/DAV5300-2025-Spring
+        href: https://github.com/jbryer/DAV5300-2025-Fall
         text: "Github"
         target: _blank
       - icon: slack
-        href: https://dav5300spring2025.slack.com
+        href: https://dav5300fall2025.slack.com
         text: "Slack"
       - icon: link-45deg
         text: "Yeshiva University"
