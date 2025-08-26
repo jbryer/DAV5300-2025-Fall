@@ -1,0 +1,751 @@
+---
+title: "Introduction to DAV 5300"
+subtitle: "Computational Mathematics and Statistics"
+author: Jason Bryer, Ph.D.
+date: "August 26, 2025"
+output:
+  xaringan::moon_reader:
+    css: ["assets/mtheme_max.css", "assets/fonts_mtheme_max.css"]
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: solarized-light
+      highlightLanguage: R
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+    includes:
+      in_header: [assets/header.html]
+      # after_body: [assets/insert-logo.html]
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+# Cartoons from https://github.com/allisonhorst/stats-illustrations
+# dplyr based upon https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome
+
+source('../config.R')
+```
+
+class: center, middle, inverse, title-slide
+
+# `r metadata$title`
+## `r metadata$subtitle`
+### `r metadata$author`
+### `r metadata$date`
+
+
+---
+# Agenda
+
+.pull-left[
+* Introductions
+
+* Syllabus
+
+* Class meetups
+
+* Course Schedule
+
+* Assignments (how you will be graded)
+
+* Software setup
+
+* Brief introduction to R
+]
+.pull-right[
+While waiting, please complete this formative assessment:
+
+```{r, echo=FALSE, fig.width=5, fig.height=5}
+qrcode::qr_code(formative_assessment) |> plot(col = c('#FAFAFA', 'black'))
+```
+]
+
+---
+class: font120
+# A little about me...
+
+* Earned my Ph.D. in Educational Pschology and Methodology from the University at Albany. Dissertation: [A National Study Comparing Charter and Traditional Public Schools Using Propensity Score Analysis](https://github.com/jbryer/dissertation)
+* Assistant Professor at CUNY in Data Science and Information Systems
+* Principal Investigator for a Department of Education Grant to develop and test the Diagnostic Assessment and Achievement of College Skills ([www.DAACS.net](http://www.daacs.net))  
+* Authored over a dozen R packages including:
+	* [likert](http://github.com/jbryer/likert)
+	* [sqlutils](http://github.com/jbryer/sqlutils)
+	* [timeline](http://github.com/jbryer/timeline)
+* Specialize in propensity score methods. Three new methods/R packages developed include:
+	* [multilevelPSA](http://github.com/jbryer/multilevelPSA)
+	* [TriMatch](http://github.com/jbryer/TriMatch)
+	* [PSAboot](http://github.com/jbryer/PSAboot)
+
+---
+
+# Also a Father...
+
+```{r, out.width='65%', fig.align='center', echo=FALSE}
+knitr::include_graphics('images/BoysFall2019.jpg')
+```
+
+---
+
+# Runner...
+
+<table border='0' width='100%'><tr><td>
+<center><img src='images/2025DisneyMarathon.jpeg' height='450'></center>
+</td><td>
+<center><img src='images/2019NYCMarathon.jpg' height='450'></center>
+</td></tr></table>
+
+---
+
+# And photographer.
+```{r, out.width='80%', fig.align='center', echo=FALSE}
+knitr::include_graphics('images/Sleeping_Empire.jpg')
+```
+
+---
+# Your turn...
+
+What is your name?
+
+What program are you in?
+
+What are your career goals?
+
+Something unique about you (e.g. hobby, interest, favorite movie)?
+
+
+---
+# Syllabus `r hexes(c('blogdown', 'rmarkdown'))`
+
+.pull-left[
+Syllabus and course materials are here: `r course_site`
+
+We will use Canvas primary for submitting assignments only. Please submit PDFs.
+
+PDFs are preferred for the homework as there is some LaTeX formatting in the R markdown files. The `tineytex` R package helps with install LaTeX, but you can also install LaTeX using [MiKTeX](http://miktex.org) (for Windows) and [BasicTeX](http://www.tug.org/mactex/morepackages.html) (for Mac).
+
+]
+.pull-right[
+```{r, echo=FALSE, fig.width=5, fig.height=5}
+qrcode::qr_code(course_site) |> plot(col = c('#FAFAFA', 'black'))
+```
+]
+
+---
+class: font90
+
+# Class Meetings
+
+Class will meet every Tuesday. 
+
+In order to get the most out of this class attendance is required.
+
+**One Minute Papers** - Complete the one minute paper after each Meetup (whether you watch live or watch the recordings). It should take approximately one to two minutes to complete. 
+
+---
+class: font60
+# Schedule
+
+.pull-left[
+```{r schedule-setup, echo=FALSE, warning=FALSE, message=FALSE}
+# devtools::install_github("gadenbuie/ggweekly")
+library(ggweekly)
+library(rlang) # Needed for the ggweekly.R script to work
+library(configr)
+library(ggplot2)
+library(readxl)
+library(lubridate)
+# library(kableExtra)
+
+options(knitr.kable.NA = '')
+
+palette <- c('#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462',
+			 '#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f')
+
+lastModified <- format(file.info('../Schedule.xlsx')[1,]$mtime, '%B %d, %Y %I:%M%p')
+
+meetups <- read_excel('../Schedule.xlsx', sheet = 'Meetups')
+meetups$day <- as.Date(meetups$Date)
+```
+
+```{r printSchedule, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
+knitr::kable(meetups[,c('Topic', 'Date')], format = 'html', escape = FALSE)
+```
+
+]
+.pull-right[
+Assignments are due on Monday before the next class.
+]
+
+---
+# Textbooks `r hexes(c('openintro'))`
+
+
+[*OpenIntro Statistics*](https://github.com/jbryer/DATA606Fall2020/blob/master/Textbook/os4.pdf?raw=true) by David Diaz, Mine Çetinkaya-Rundel, and Christopher D Barr.
+
+[*Learning Statistics with R*](https://github.com/jbryer/DATA606Fall2020/blob/master/Textbook/lsr-0.6.pdf?raw=true) by Danielle Navaro - We will only use the Bayesian chapter from this book.
+
+## Optional
+
+[*R for Data Science*](https://r4ds.hadley.nz) by Hadley Wickham and Garrett Grolemund - Recommended reference for those new to R.
+
+---
+class: font90
+# Assignments
+
+**Labs** (30%) - Labs are designed to provide you an opportunity to apply statistical concepts using statistical software.
+
+**Textbook questions** (15%) - The assigned questions from the textbook provide an opportunity to assess conceptional understandings.
+
+**Participation** (10%) - You are expected to attend every class and to complete a [one minute paper](https://forms.gle/CD5Qxkq3xtdxSheW8) at the conclusion of class.
+
+**Data Project** (25%) - In a group of 2 to 3 students will present the results of analysis using a data set of your choice. More details will be provided a few weeks into the class.
+
+**Final exam** (20%) - A multiple choice exam will be given on the last day of class.
+
+**All assignments are due on Monday.** Assignments submitted late will be penalized. Assignments will not be accepted more than one week after their due date.
+
+---
+# Academic Integrity
+
+With the exception of the data project, I expect you to complete all assignments (e.g. homework, labs) on your own. It is fine to ask questions of your peers and professor, but working together and/or sharing answers is not allowed.
+
+## Yeshiva's Policy
+
+The submission by a student of any examination, course assignment, or degree requirement is assumed to guarantee that the thoughts and expressions therein not expressly credited to another are literally the student’s own. Evidence to the contrary will result in appropriate penalties. For more information, visit https://www.yu.edu/academic-integrity.
+
+---
+# Use of Artificial Intelligence (AI)
+
+First, AI is a marketing term. I prefer to be more specific regarding what we are doing:
+
+1. Machine Learning (ML) - This course, along with IS382, will provide the foundations for how ML algorithms work. Generally speaking, the goal is to predict some known (and sometimes unknown in the case of unsupervised learning models) outcome.
+
+2. Large Language Models (LLM) - This is often what people mean when they say AI. This includes producsts like ChatGPT, Antrhopic, Google Gemini, etc. LLMs generate text, images, videos, etc. from a prompt.
+
+The goal of this course is for *you to develop the foundation knowledge and skills to do statistics.* Using chat bots to do the assignments subverts this goal. **The content generated by LLMs is often wrong!** If you use LLMs to assist in completing the assignments, **you must include the prompt and response in your submission**.
+
+
+
+---
+# Communication
+
+.pull-left[
+
+* Email: [jason.bryer@yu.edu](mailto:jason.bryer@yu.edu).
+
+* Canvas
+
+* Office hours before and after class and by appointment.
+
+* Slack `r slack_link`
+
+]
+.pull-right[
+
+Scan this QR code to join the Slack workspace:
+
+```{r, echo=FALSE, fig.width=5, fig.height=5}
+qrcode::qr_code(slack_invite) |> plot(col = c('#FAFAFA', 'black'))
+```
+
+]
+
+
+---
+# Familiarity with Statistical Topics `r hexes(c('googlesheets4','likert'))`
+
+```{r, echo = FALSE, cache = FALSE, message = FALSE, warning = FALSE}
+library(googlesheets4)
+
+results <- googlesheets4::read_sheet(formative_assessmnet_results) %>% as.data.frame()
+mass.items <- c('I find math interesting.',
+				'I get uptight during math tests.',
+				'I think that I will use math in the future.',
+				'Mind goes blank and I am unable to think clearly when doing my math test.',
+				'Math relates to my life.',
+				'I worry about my ability to solve math problems.',
+				'I get a sinking feeling when I try to do math problems.',
+				'I find math challenging.',
+				'Mathematics makes me feel nervous.',
+				'I would like to take more math classes.',
+				'Mathematics makes me feel uneasy.',
+				'Math is one of my favorite subjects.',
+				'I enjoy learning with mathematics.',
+				'Mathematics makes me feel confused.')
+mass.results <- results[,5:18]
+for(i in 1:ncol(mass.results)) {
+	mass.results[,i] <- factor(mass.results[,i],
+						  levels = c('Strongly Disagree', 'Disagree', 'Neutral',
+						  		   'Agree', 'Strongly Agree'),
+						  ordered = TRUE)
+}
+names(mass.results) <- mass.items
+
+stats.items <- c('Descriptive Statistics',
+                 'Probability',
+                 'Data visualizations',
+				 'Correlation',
+                 'Central limit theorem',
+                 'Null hypothesis testing',
+				 'ANOVA',
+				 'Chi-squared tests',
+				 'Type I and II errors',
+                 'Assumptions for regression',
+                 'Linear regression',
+                 'Multiple regression',
+				 'Logistic regression',
+                 'Predictive modeling',
+                 'SPSS',
+                 'R',
+                 'Python')
+
+stats.results <- results[,19:35]
+for(i in 1:ncol(stats.results)) {
+	stats.results[,i] <- factor(stats.results[,i],
+						  levels = c('Not at all familiar', 'Sligtly familiar',
+						  		     'Somewhat familiar',
+						  		     'Moderately familiar', 'Extremely familiar'),
+						  ordered = TRUE)
+}
+names(stats.results) <- stats.items
+```
+
+
+
+```{r, fig.width=12, fig.align='center'}
+likert(stats.results) %>% plot(center = 2.5)
+```
+
+---
+# Math Anxiety Survey Scale `r hexes(c('googlesheets4','likert'))`
+
+```{r, fig.width = 12, fig.align='center'}
+likert(mass.results) %>% plot()
+```
+
+
+---
+class: inverse, middle, center
+# Software Setup
+
+---
+# Why R?
+
+.pull-left[
+There are many languages data scientists use. [R](https://r-project.org) is specifically designed for statistics. We will leverage many R packages that are specifically designed to conduct, teach, and communicate statistical analysis.
+
+To be a well rounded data scientists, I believe you need to have experience in both R and Python. For this course:
+
+* Use R for the labs (they are designed to help you learn the core commands). 
+* You may use Python or R for the homework and data project.
+]
+.pull-right[
+```{r, echo=FALSE}
+knitr::include_graphics('images/R_logo.png')
+```
+]
+
+---
+# Software `r hexes(c('rmarkdown', 'RStudio', 'tinytex'))`
+
+This is an applied statistics course so we will make extensive use of the [R statistical programming language](https://www.r-project.org).
+
+* Install [R](https://cran.r-project.org) and [RStudio](https://rstudio.com) on your own computer. I encourage everyone to do this at some point by the end of the semester.
+
+You will also need to have [LaTeX](https://www.latex-project.org) installed as well in order to create PDFs. The [`tinytex`](https://yihui.org/tinytex/) R package helps with this process:
+
+```
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+---
+class: font80
+# Clean Environment Between Sessions
+
+.pull-left[
+By default RStudio will ask you to save your session when closing the application. Additionally, if the `.RData` file exists in the project directory, data saved in that file will be loaded into your session. *I highly recommend turning this off.* Doing so will ensure you have a clean environment everytime you start RStudio.
+
+* In RStudio, click the `Tools` menu then `Global Options`
+* Uncheck *"Restore .RData into workspace at startup"*
+* For *"Save worksopace to .RData on exit"* select "Never"
+
+**Why do this?** Whenever you knit a document (e.g. Rmarkdow, Quarto) R will create a new, blank, session to knit the document. When working interactively it is easy to run commands out of order. It is alwasy good to check your work by resetting your environment (click `Session` --> `Restart R`) and running your commands in order to ensure everyting will work as intended.
+]
+.pull-right[
+![RStudio Options](images/RStudio_Options.png)
+]
+
+
+---
+class: inverse, middle, center
+# Introduction to R
+
+
+---
+# Workflow
+
+.center[
+<img src='images/data-science-wrangle.png' alt = 'Data Science Workflow' width='1000' />
+]
+
+.font80[Source: [Wickham & Grolemund, 2017](https://r4ds.had.co.nz)]
+
+
+---
+# Tidy Data
+
+.center[
+<img src='images/tidydata_1.jpg' height='500' />
+]
+
+See Wickham (2014) [Tidy data](https://vita.had.co.nz/papers/tidy-data.html).
+
+
+---
+# Types of Data
+
+.pull-left[
+* Numerical (quantitative)
+	* Continuous
+	* Discrete
+
+* Categorical (qualitative)
+	* Regular categorical
+	* Ordinal
+]
+.pull-right[
+.center[
+<img src='images/continuous_discrete.png' height='400' />
+]
+]
+
+---
+# Data Types in R
+
+```{r, echo=FALSE, fig.align='center', out.width=1000}
+knitr::include_graphics('images/DataTypesConceptModel.png')
+```
+
+
+
+---
+class: font80
+# About `legosets` `r hexes(c('brickset'))`
+
+To install the `brickset` package:
+
+```{r, eval=FALSE}
+remotes::install_github('jbryer/brickset')
+```
+
+To load the load the `legosets` dataset.
+
+```{r}
+data('legosets', package = 'brickset')
+```
+
+The `legosets` data has `r nrow(legosets)` observations of `r ncol(legosets)` variables.
+
+.code70[
+```{r}
+names(legosets)
+```
+]
+
+---
+# Structure (`str`) `r hexes(c('brickset'))`
+
+.code50[
+
+```{r}
+str(legosets)
+```
+
+]
+
+---
+# RStudio Eenvironment tab can help `r hexes(c('rstudio'))`
+
+```{r, echo=FALSE, out.width=500}
+knitr::include_graphics('images/legosets_rstudio_environment.png')
+```
+
+---
+class: hide-logo
+# Table View 
+
+.font60[
+
+```{r eval=require('DT'), echo=FALSE, tidy=FALSE}
+legosets %>%
+	sample_n(100) %>% 
+	select(setID, name, year, theme, themeGroup, category, US_retailPrice, pieces, minifigs, rating) %>%
+	DT::datatable(fillContainer = FALSE, options = list(pageLength = 10))
+```
+
+]
+
+
+---
+# Data Wrangling Cheat Sheet `r hexes(c('dplyr'))`
+
+.center[
+<a href='https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf' target='_new'><img src='images/data-transformation.png' width='700' /></a>
+]
+
+
+---
+# Tidyverse vs Base R `r hexes(c('tidyverse', 'pipe'))`
+
+.center[
+<a href='images/R_Syntax_Comparison.jpeg' target='_new'><img src="images/R_Syntax_Comparison.jpeg" width='700' /></a>
+]
+
+
+---
+# Pipes `%>%` and `|>` `r hexes(c('magrittr'))`
+
+<img src='images/magrittr_pipe.jpg' align='right' width='200' />
+
+.font90[
+The pipe operator (`%>%`) introduced with the `magrittr` R package allows for the chaining of R operations. Base R has now added their own pipe operator (`|>`). They take the output from the left-hand side and passes it as the first parameter to the function on the right-hand side.
+]
+
+.pull-left[
+You can do this in two steps:
+
+```{r, eval=FALSE}
+tab_out <- table(legosets$category)
+prop.table(tab_out)
+```
+
+Or as nested function calls.
+
+```{r, eval=FALSE}
+prop.table(table(legosets$category))
+```
+]
+.pull-right[
+Using the pipe (`|>`) operator we can chain these calls in a what is arguably a more readable format:
+
+```{r, eval=FALSE}
+table(legosets$category) |> prop.table()
+```
+]
+
+<hr />
+
+```{r, echo=FALSE}
+table(legosets$category) |> prop.table()
+```
+
+---
+# Filter `r hexes(c('dplyr','tidyverse'))`
+
+.center[
+<img src='images/dplyr_filter_sm.png' width='800' />
+]
+
+---
+# Logical Operators
+
+* `!a` - TRUE if a is FALSE
+* `a == b` - TRUE if a and be are equal
+* `a != b` - TRUE if a and b are not equal
+* `a > b` - TRUE if a is larger than b, but not equal
+* `a >= b` - TRUE if a is larger or equal to b
+* `a < b` - TRUE if a is smaller than be, but not equal
+* `a <= b` - TRUE if a is smaller or equal to b
+* `a %in% b` - TRUE if a is in b where b is a vector  
+```{r}
+letters %in% c('a','e','i','o','u') |> which()
+```
+* `a | b` - TRUE if a *or* b are TRUE
+* `a & b` - TRUE if a *and* b are TRUE
+* `isTRUE(a)` - TRUE if a is TRUE
+
+---
+# Filter `r hexes(c('dplyr','tidyverse'))`
+
+### `dplyr`
+
+```{r}
+mylego <- legosets %>% filter(themeGroup == 'Educational' & year > 2015)
+```
+
+### Base R
+
+```{r, eval=FALSE}
+mylego <- legosets[legosets$themeGroups == 'Educational' & legosets$year > 2015,]
+```
+
+<hr />
+
+```{r}
+nrow(mylego)
+```
+
+---
+# Select `r hexes(c('dplyr','tidyverse'))`
+
+### `dplyr`
+
+```{r}
+mylego <- mylego %>% select(setID, pieces, theme, availability, US_retailPrice, minifigs)
+```
+
+### Base R
+
+```{r, eval=FALSE}
+mylego <- mylego[,c('setID', 'pieces', 'theme', 'availability', 'US_retailPrice', 'minifigs')]
+```
+
+<hr />
+
+```{r}
+head(mylego, n = 4)
+```
+
+---
+# Relocate `r hexes(c('dplyr','tidyverse'))`
+
+.center[
+<img src='images/dplyr_relocate.png' width='800' />
+]
+
+---
+# Relocate `r hexes(c('dplyr','tidyverse'))`
+
+### `dplyr`
+
+```{r}
+mylego %>% relocate(where(is.numeric), .after = where(is.character)) %>% head(n = 3)
+```
+
+### Base R
+
+```{r}
+mylego2 <- mylego[,c('theme', 'availability', 'setID', 'pieces', 'US_retailPrice', 'minifigs')]
+head(mylego2, n = 3)
+```
+
+
+---
+# Rename `r hexes(c('dplyr','tidyverse'))`
+
+.center[
+<img src='images/rename_sm.jpg' width='1000' />
+]
+
+---
+# Rename `r hexes(c('dplyr','tidyverse'))`
+
+### `dplyr`
+
+```{r}
+mylego %>% dplyr::rename(USD = US_retailPrice) %>% head(n = 3)
+```
+
+### Base R
+
+```{r}
+names(mylego2)[5] <- 'USD'
+head(mylego2, n = 3)
+```
+
+---
+# Mutate `r hexes(c('dplyr','tidyverse'))`
+
+.center[
+<img src='images/dplyr_mutate.png' width='700' />
+]
+
+---
+# Mutate `r hexes(c('dplyr','tidyverse'))`
+
+### `dplyr`
+
+```{r}
+mylego %>% filter(!is.na(pieces) & !is.na(US_retailPrice)) %>% 
+	mutate(Price_per_piece = US_retailPrice / pieces) %>% head(n = 3)
+```
+
+### Base R
+
+```{r}
+mylego2 <- mylego[!is.na(mylego$US_retailPrice) & !is.na(mylego$Price_per_piece),]
+mylego2$Price_per_piece <- mylego2$Price_per_piece / mylego2$US_retailPrice
+head(mylego2, n = 3)
+```
+
+
+---
+# Group By and Summarize `r hexes(c('dplyr','tidyverse'))`
+
+.code80[
+```{r}
+legosets %>% group_by(themeGroup) %>% summarize(mean_price = mean(US_retailPrice, na.rm = TRUE),
+												sd_price = sd(US_retailPrice, na.rm = TRUE),
+												median_price = median(US_retailPrice, na.rm = TRUE),
+												n = n(),
+												missing = sum(is.na(US_retailPrice)))
+```
+]
+
+---
+# Describe and Describe By
+
+```{r}
+library(psych)
+describe(legosets$US_retailPrice)
+```
+
+```{r, echo=FALSE, results='hide'}
+options(width = 120)
+```
+
+```{r}
+describeBy(legosets$US_retailPrice, group = legosets$availability, mat = TRUE, skew = FALSE)
+```
+
+
+---
+# Additional Resources
+
+For data wrangling:
+
+* `dplyr` website: https://dplyr.tidyverse.org
+
+* R for Data Science book: https://r4ds.had.co.nz/wrangle-intro.html
+
+* Wrangling penguins tutorial: https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome
+
+* Data transformation cheat sheet: https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+
+
+---
+class: inverse, right, middle, hide-logo
+
+<!--img src="images/hex/DATA606.png" width="150px"/-->
+
+# Good luck with the semester!
+
+.pull-left[
+```{r, echo=FALSE, fig.width=5, fig.height=5}
+qrcode::qr_code(one_minute_paper) |> plot(col = c('#FAFAFA', 'black'))
+```
+]
+.pull-right[
+[`r icons::fontawesome("paper-plane")` jason.bryer@yu.edu](mailto:jason.bryer@yu.edu)  
+[`r icons::fontawesome("github")` @jbryer](https://github.com/jbryer/`r github_link`)  
+[`r icons::fontawesome('mastodon')` @jbryer@vis.social](https://vis.social/@jbryer)  
+[`r icons::fontawesome('slack')` `r gsub('https://', '', slack_link)`](`r slack_link`)  
+[`r icons::fontawesome("link")` `r paste0(tolower(semester), year, '.dav5300.net')`](`r paste0('https://', tolower(semester), year, '.dav5300.net')`)   
+
+]
+
