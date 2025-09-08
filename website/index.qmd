@@ -8,7 +8,6 @@ editor_options:
 This page contains an outline of the topics, content, and assignments for the semester.
 Note that this schedule will be updated as the semester progresses.
 
-
 ```{r, echo=FALSE, results='asis'}
 slides_uri <- '/slides/'
 

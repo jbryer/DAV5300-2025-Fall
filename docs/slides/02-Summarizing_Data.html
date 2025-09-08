@@ -372,7 +372,7 @@ ggplot(legosets, aes(x = US_retailPrice)) + geom_histogram(binwidth = 25)
 
 
 ``` r
-ggplot(legosets, aes(x = US_retailPrice)) + geom_histogram(bins = 15) + scale_x_log10()
+ggplot(legosets, aes(x = US_retailPrice)) + geom_histogram(bins = 15) + scale_x_log10() + xlab('log(US_retailPrice0')
 ```
 
 &lt;img src="02-Summarizing_Data_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
@@ -402,7 +402,7 @@ ggplot(legosets, aes(x = US_retailPrice, color = availability)) + geom_density()
 
 
 ``` r
-ggplot(legosets, aes(x = US_retailPrice, color = availability)) + geom_density() + scale_x_log10()
+ggplot(legosets, aes(x = US_retailPrice, color = availability)) + geom_density() + scale_x_log10() + xlab('log(US_retailPrice)')
 ```
 
 &lt;img src="02-Summarizing_Data_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
