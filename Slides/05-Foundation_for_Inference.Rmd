@@ -300,9 +300,10 @@ pnorm(2) - pnorm(0)
 ```{r, echo=FALSE}
 library(cowplot)
 
-plot_distributions <- function(dist, xvals, xmin, xmax,
-							   args = list(),
-							   palette = c(d = '#1b9e77', r = '#d95f02', p = '#7570b3', q = '#e7298a')) {
+plot_distributions <- function(
+		dist, xvals, xmin, xmax,
+		args = list(),
+		palette = c(d = '#1b9e77', r = '#d95f02', p = '#7570b3', q = '#e7298a')) {
 	functions <- c(d = get(paste0('d', dist)),
 				   r = get(paste0('r', dist)),
 				   p = get(paste0('p', dist)),
@@ -367,6 +368,17 @@ plot_distributions(dist = 'norm',
 ```
 
 .font70[See https://github.com/jbryer/DATA606Fall2021/blob/master/R/distributions.R]
+
+
+---
+# Geometric Distribution
+
+```{r, echo=FALSE, fig.height=7}
+plot_distributions(dist = 'geom',
+				   xvals = c(1, 5),
+				   xmin = 0, xmax = 10, 
+				   args = list(prob = .35))
+```
 
 ---
 class: center, middle, inverse

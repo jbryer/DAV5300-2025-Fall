@@ -241,6 +241,12 @@ pnorm(2) - pnorm(0)
 
 .font70[See https://github.com/jbryer/DATA606Fall2021/blob/master/R/distributions.R]
 
+
+---
+# Geometric Distribution
+
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
 ---
 class: center, middle, inverse
 # Foundation for Inference 
@@ -257,11 +263,11 @@ mean(pop)
 ```
 
 ```
-## [1] 0.5008843
+## [1] 0.5008915
 ```
 
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Random Sample (n=10)
@@ -273,7 +279,7 @@ mean(samp1)
 ```
 
 ```
-## [1] 0.5362869
+## [1] 0.5462923
 ```
 
 
@@ -281,7 +287,7 @@ mean(samp1)
 hist(samp1)
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Random Sample (n=30)
@@ -293,7 +299,7 @@ mean(samp2)
 ```
 
 ```
-## [1] 0.5796006
+## [1] 0.5130467
 ```
 
 
@@ -302,7 +308,7 @@ mean(samp2)
 hist(samp2)
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Lots of Random Samples
@@ -318,8 +324,8 @@ head(samples, n=8)
 ```
 
 ```
-## [1] 0.3980462 0.4970740 0.5461138 0.5301976 0.5428129 0.4697327 0.5848166
-## [8] 0.5152559
+## [1] 0.5314329 0.4892158 0.5300205 0.5349329 0.5290058 0.4482886 0.3628467
+## [8] 0.4448132
 ```
 
 
@@ -332,7 +338,7 @@ head(samples, n=8)
 hist(samples)
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -376,7 +382,7 @@ mean(samp2)
 ```
 
 ```
-## [1] 0.4981768
+## [1] 0.5410922
 ```
 
 ``` r
@@ -384,7 +390,7 @@ mean(samp2)
 ```
 
 ```
-## [1] 0.05715187
+## [1] 0.05035122
 ```
 
 ---
@@ -409,16 +415,16 @@ qnorm(0.025) # Remember we need to consider the two tails, 2.5% to the left, 2.5
 ```
 
 ```
-## [1] 0.3861591 0.6101945
+## [1] 0.4424038 0.6397806
 ```
 
 
 ---
 # Confidence Intervals (cont.)
 
-We are 95% confident that the true population mean is between 0.3861591, 0.6101945. 
+We are 95% confident that the true population mean is between 0.4424038, 0.6397806. 
 
-That is, if we were to take 100 random samples, we would expect at least 95% of those samples to have a mean within 0.3861591, 0.6101945.
+That is, if we were to take 100 random samples, we would expect at least 95% of those samples to have a mean within 0.4424038, 0.6397806.
 
 
 ``` r
@@ -446,7 +452,7 @@ ggplot(ci, aes(x=min, xend=max, y=sample, yend=sample, color=sig)) +
 	scale_color_manual(values=c('TRUE'='grey', 'FALSE'='red'))
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center, middle, inverse
@@ -479,10 +485,10 @@ Using confidence intervals, if the *null* value is within the confidence interva
 ```
 
 ```
-## [1] 0.3861591 0.6101945
+## [1] 0.4424038 0.6397806
 ```
 
-Since 0.5 fall within 0.3861591, 0.6101945, we *fail* to reject the null hypothesis.
+Since 0.5 fall within 0.4424038, 0.6397806, we *fail* to reject the null hypothesis.
 
 
 ---
@@ -510,7 +516,7 @@ pnorm(-.204) * 2
 DATA606::normal_plot(cv = c(.204), tails = 'two.sided')
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -568,12 +574,12 @@ Which error do you think is the worse error to make?
 ## [1] 1.644854
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Alternative Distribution
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ``` r
@@ -602,7 +608,7 @@ mu &lt;- 2.5
 ```
 ]
 .pull-right[
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-41-2.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-42-2.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -688,10 +694,10 @@ mean(pop)
 ```
 
 ```
-## [1] 0.4994697
+## [1] 0.49942
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Bootstrapping Example (Sample)
@@ -703,7 +709,7 @@ We observe one random sample from the population.
 samp1 &lt;- sample(pop, size = 50)
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Bootsrapping Example (Estimate)
@@ -719,7 +725,7 @@ head(boot.samples)
 ```
 
 ```
-## [1] 0.3495237 0.4660204 0.4051376 0.4430759 0.4746305 0.4155112
+## [1] 0.3921342 0.4438682 0.4397781 0.4709942 0.4816891 0.5170250
 ```
 
 ---
@@ -735,7 +741,7 @@ hist(boot.samples, main='Bootstrap Distribution', xlab="", freq=FALSE,
 lines(d, lwd=3)
 ```
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # 95% confidence interval
@@ -747,7 +753,7 @@ c(mean(boot.samples) - 1.96 * sd(boot.samples),
 ```
 
 ```
-## [1] 0.3884119 0.5471289
+## [1] 0.3863691 0.5355786
 ```
 
 ---
@@ -764,7 +770,7 @@ head(boot.samples.median)
 ```
 
 ```
-## [1] 0.3663604 0.4388365 0.4870234 0.4735963 0.4879406 0.3173897
+## [1] 0.4071474 0.5168705 0.3990043 0.4071474 0.3959093 0.3990043
 ```
 
 95% confidence interval for the median
@@ -776,7 +782,7 @@ c(mean(boot.samples.median) - 1.96 * sd(boot.samples.median),
 ```
 
 ```
-## [1] 0.3185186 0.5879298
+## [1] 0.3102451 0.5448869
 ```
 
 
@@ -789,23 +795,23 @@ class: inverse, middle, center
 ---
 # Review: Sampling Distribution
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
-
----
-# Review: Sampling Distribution
-
 &lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
-
 
 ---
 # Review: Sampling Distribution
 
 &lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
 
+
+---
+# Review: Sampling Distribution
+
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+
 ---
 # Review: Add Bootstrap Distribution
 
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -817,7 +823,7 @@ class: left, font140
 2. What important question remains unanswered for you?
 ]
 .pull-right[
-&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-Foundation_for_Inference_files/figure-html/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 https://forms.gle/bEk6KegZ1AMvQHNt5
