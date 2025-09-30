@@ -11,3 +11,7 @@ DATA606::shiny_demo('calculus')
 rnorm(100) |> hist()
 qnorm(.5 )
 qnorm(.5, mean = 100, sd = 15)
+
+n <- 10
+p <- 0.35
+barplot(dbinom(0:n, n, p), names.arg=0:n)
