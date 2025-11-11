@@ -2,7 +2,7 @@
 title: "Multiple Linear Regression"
 subtitle: "Computational Mathematics and Statistics"
 author: Jason Bryer, Ph.D.
-date: "March 11, 2025"
+date: "November 11, 2025"
 output:
   xaringan::moon_reader:
     css: ["assets/mtheme_max.css", "assets/fonts_mtheme_max.css"]
