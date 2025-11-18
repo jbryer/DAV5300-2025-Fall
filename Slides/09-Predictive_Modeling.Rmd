@@ -2,7 +2,7 @@
 title: "Predictive Modeling"
 subtitle: "Computational Mathematics and Statistics"
 author: Jason Bryer
-date: "March 25, 2025"
+date: "November 18, 2025"
 output:
   xaringan::moon_reader:
     css: ["assets/mtheme_max.css", "assets/fonts_mtheme_max.css"]
@@ -51,7 +51,7 @@ class: center, middle, inverse, title-slide
 
 # One Minute Paper Results
 
-```{r, echo=FALSE, eval = TRUE}
+```{r, echo=FALSE, eval = FALSE}
 library(googlesheets4)
 omp <- read_sheet(one_minute_paper_results)
 omp_date <- format(as.Date(rmarkdown::metadata$date, format = '%B %d, %Y') - 7, format = '%B %d')
@@ -60,13 +60,13 @@ omp <- omp %>% dplyr::filter(`Class Date` == omp_date)
 
 .pull-left[
 **What was the most important thing you learned during this class?**
-```{r, echo=FALSE, fig.height=9, eval = TRUE}
+```{r, echo=FALSE, fig.height=9, eval = FALSE}
 ompWordCloud(omp$`What was the most important thing you learned during this class?`)
 ```
 ]
 .pull-right[
 **What important question remains unanswered for you?**
-```{r, echo=FALSE, fig.height=9, eval = TRUE}
+```{r, echo=FALSE, fig.height=9, eval = FALSE}
 ompWordCloud(omp$`What important question remains unanswered for you?`)
 ```
 ]
