@@ -8,6 +8,9 @@ description: "Important information on how to get started with this course. Plea
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 source('../../config.R')
+```
+
+```{r, eval=FALSE}
 meetup_image(out_file = 'welcome.png',
 			 title = 'Welcome to DAV 5300!',
 			 date = ' ')

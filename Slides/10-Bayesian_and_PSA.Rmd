@@ -2,7 +2,7 @@
 title: "Bayesian Analysis & Propensity Score Analysis"
 subtitle: "Computational Mathematics and Statistics"
 author: Jason Bryer, Ph.D.
-date: "April 8, 2025"
+date: "December 2, 2025"
 output:
   xaringan::moon_reader:
     css: ["assets/mtheme_max.css", "assets/fonts_mtheme_max.css"]
@@ -39,29 +39,6 @@ class: center, middle, inverse, title-slide
 ## `r metadata$subtitle`
 ### `r metadata$author`
 ### `r metadata$date`
-
----
-# One Minute Paper Results
-
-```{r omp, echo=FALSE, eval = TRUE}
-library(googlesheets4)
-omp <- read_sheet(one_minute_paper_results)
-omp_date <- format(as.Date(rmarkdown::metadata$date, format = '%B %d, %Y') - 14, format = '%B %d')
-omp <- omp %>% dplyr::filter(`Class Date` == omp_date)
-```
-
-.pull-left[
-**What was the most important thing you learned during this class?**
-```{r, echo=FALSE, fig.height=9, eval = TRUE}
-ompWordCloud(omp$`What was the most important thing you learned during this class?`)
-```
-]
-.pull-right[
-**What important question remains unanswered for you?**
-```{r, echo=FALSE, fig.height=9, eval = TRUE}
-ompWordCloud(omp$`What important question remains unanswered for you?`)
-```
-]
 
 
 ---
