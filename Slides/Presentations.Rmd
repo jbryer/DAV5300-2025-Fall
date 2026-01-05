@@ -1,7 +1,7 @@
 ---
 title: "DAV5300  Presentations"
 subtitle: "Computational Mathematics and Statistics"
-date: "Spring 2025"
+date: "Fall 2025"
 output:
   xaringan::moon_reader:
     css: ["assets/mtheme_max.css", "assets/fonts_mtheme_max.css"]
@@ -24,7 +24,7 @@ editor_options:
 
 ```{r setup, include = FALSE}
 source('../config.R')
-peer_feedback_form <- 'https://forms.gle/MsfPaFtQCLnS5gNZA'
+peer_feedback_form <- 'https://forms.gle/5yLg2w2RQRRZfNpq9'
 ```
 
 class: center, middle, inverse, title-slide
@@ -55,7 +55,7 @@ class: font100
 
 * Complete the peer feedback form for each presentations: `r peer_feedback_form`
 
-* Submit a PDF of your slides and abstract to Convas
+* Submit a PDF of your slides and abstract to Canvas.
 
 * Good luck!
 ]
